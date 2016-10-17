@@ -19,11 +19,26 @@ net node 4.1.0.1 domain 6
 net node 4.1.0.2 domain 6
 
 #CERN alicia
+net add domain 7 igp
+net add node 4.200.0.1
+net node 4.200.0.1 domain 7
 
 #UCLA jason
 
 #UCL alicia
+net add domain 9 igp
+net add node 130.104.0.1
+net add node 130.104.0.2
+net add link 130.104.0.1 130.104.0.2
+net link 130.104.0.1 130.104.0.2 igp-weight --bidir 1
+net node 130.104.0.1 domain 9
+net node 130.104.0.2 domain 9
 
 #ULg alicia
+net add domain 10 igp
+net add node 139.165.0.1
+net add node 139.165.0.2
+net node 139.165.0.1 domain 10
+net node 139.165.0.2 domain 10
 
 #https://github.com/lvanbever/cbgp/blob/master/examples/example-igp-change.cli

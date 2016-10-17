@@ -1,4 +1,14 @@
-#belnet
+#BigCarrier jason
+
+#Spring jason
+
+#iCompany jason
+
+#Abilene jason
+
+#GEANT alicia
+
+#belnet alicia
 net add node 4.1.0.1
 net node 4.1.0.1 name "belR1"
 net add node 4.1.0.2
@@ -7,5 +17,13 @@ net link 4.1.0.1 4.1.0.2 igp-weight --bidir 1
 net add domain 6 igp
 net node 4.1.0.1 domain 6
 net node 4.1.0.2 domain 6
+
+#CERN alicia
+
+#UCLA jason
+
+#UCL alicia
+
+#ULg alicia
 
 #https://github.com/lvanbever/cbgp/blob/master/examples/example-igp-change.cli

@@ -1,0 +1,10 @@
+Pour installer libgds, il manque un paquet à installer. c'est
+
+lib32z1-d
+
+à installer avec apt-get
+
+dans cbgp-2.3.2, sudo apt-get install libpcre3-dev
+
+pour cbgp-dump --in-fmt=mrt-binary --out-fmt=cisco blabla.bz2,
+on peut remplacer binary par ascii

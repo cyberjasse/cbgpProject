@@ -1,0 +1,10 @@
+#belnet
+net add node 4.1.0.1
+net node 4.1.0.1 name "belR1"
+net add node 4.1.0.2
+net add link 4.1.0.1 4.1.0.2
+net link 4.1.0.1 4.1.0.2 igp-weight --bidir 1
+net add domain 6 igp
+net node 4.1.0.1 domain 6
+net node 4.1.0.2 domain 6
+

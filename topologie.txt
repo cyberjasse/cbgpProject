@@ -38,6 +38,9 @@ net add link 2.0.0.3 2.0.0.4
 net link 2.0.0.3 2.0.0.4 igp-weight --bidir 1
 
 #iCompany jason
+net add domain 3 igp
+net add node 2.1.0.1
+net node 2.1.0.1 domain 3
 
 #Abilene jason
 

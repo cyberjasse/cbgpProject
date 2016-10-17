@@ -1,4 +1,22 @@
 #BigCarrier jason
+net add domain 1 igp
+net add node 1.0.0.1
+net node 1.0.0.1 domain 1
+net add node 1.0.0.2
+net node 1.0.0.2 domain 1
+net add node 1.0.0.3
+net node 1.0.0.3 domain 1
+net add node 1.0.0.4
+net node 1.0.0.4 domain 1
+net add link 1.0.0.1 1.0.0.2
+net link 1.0.0.1 1.0.0.2 igp-weight --bidir 1
+net add link 1.0.0.1 1.0.0.3
+net link 1.0.0.1 1.0.0.3 igp-weight --bidir 10
+net add link 1.0.0.2 1.0.0.4
+net link 1.0.0.2 1.0.0.4 igp-weight --bidir 10
+net add link 1.0.0.3 1.0.0.4
+net link 1.0.0.3 1.0.0.4 igp-weight --bidir 1
+
 
 #Spring jason
 

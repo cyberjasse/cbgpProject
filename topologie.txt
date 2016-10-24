@@ -127,6 +127,12 @@ net node 3.1.0.2 domain 52
 net link 3.1.0.1 3.1.0.2 igp-weight --bidir 1
 net domain 52 compute
 
+#interdomain Abilene-UCLA
+net node 3.0.0.2 route add 3.1.0.1/16 --oif=3.1.0.1/16 1
+net node 3.0.0.2 route add 3.1.0.2/16 --oif=3.1.0.2/16 1
+net node 3.1.0.1 route add 3.0.0.2/24 --oif=3.0.0.2/24 1
+net node 3.1.0.2 route add 3.0.0.2/24 --oif=3.0.0.2/24 1
+
 #UCL alicia
 net add domain 65535 igp
 net add node 130.104.0.1

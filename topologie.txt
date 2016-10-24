@@ -185,5 +185,15 @@ net add link 3.0.0.3 4.200.0.1
 net node 3.0.0.3 route add 4.200.0.1/16 --oif=4.200.0.1/16 55
 net node 4.200.0.1 route add 3.0.0.3/24 --oif=3.0.0.3/24 55
 
+#Interdomain BigCarrier - GEANT
+net add link 1.0.0.3 4.0.0.1
+net add link 1.0.0.4 4.0.0.1
+net add link 1.0.0.1 4.0.0.2
+net node 1.0.0.3 route add 4.0.0.1/24 --oif=4.0.0.1/24 1
+net node 4.0.0.1 route add 1.0.0.3/8 --oif=1.0.0.3/8 1
+net node 1.0.0.4 route add 4.0.0.1/24 --oif=4.0.0.1/24 1
+net node 4.0.0.1 route add 1.0.0.4/8 --oif=1.0.0.4/8 1
+net node 1.0.0.1 route add 4.0.0.2/24 --oif=4.0.0.2/24 1
+net node 4.0.0.2 route add 1.0.0.1/8 --oif=1.0.0.1/8 1
 
 #https://github.com/lvanbever/cbgp/blob/master/examples/example-igp-change.cli

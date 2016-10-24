@@ -58,6 +58,9 @@ net add node 2.1.0.1
 net node 2.1.0.1 domain 200
 
 #Interdomain Spring-iCompany
+net add link 2.0.0.1 2.1.0.1
+net add link 2.0.0.2 2.1.0.1
+net add link 2.0.0.3 2.1.0.1
 net node 2.0.0.1 route add 2.1.0.1/16 --oif=2.1.0.1/16 2
 net node 2.0.0.2 route add 2.1.0.1/16 --oif=2.1.0.1/16 2
 net node 2.0.0.3 route add 2.1.0.1/16 --oif=2.1.0.1/16 8
@@ -82,6 +85,7 @@ net link 3.0.0.2 3.0.0.3 igp-weight --bidir 50
 net domain 11537 compute
 
 #Interdomain Spring-Abilene
+net add link 2.0.0.3 3.0.0.1
 net node 2.0.0.3 route add 3.0.0.1/24 --oif=3.0.0.1/24 1
 net node 3.0.0.1 route add 2.0.0.3/8 --oif=2.0.0.3/8 1
 
@@ -134,12 +138,15 @@ net link 3.1.0.1 3.1.0.2 igp-weight --bidir 1
 net domain 52 compute
 
 #interdomain Abilene-UCLA
+net add link 3.0.0.2 3.1.0.1
+net add link 3.0.0.2 3.1.0.2
 net node 3.0.0.2 route add 3.1.0.1/16 --oif=3.1.0.1/16 1
 net node 3.0.0.2 route add 3.1.0.2/16 --oif=3.1.0.2/16 1
 net node 3.1.0.1 route add 3.0.0.2/24 --oif=3.0.0.2/24 1
 net node 3.1.0.2 route add 3.0.0.2/24 --oif=3.0.0.2/24 1
 
 #interdomain UCLA-Spring
+net add link 3.1.0.1 2.0.0.3
 net node 3.1.0.1 route add 2.0.0.3/8 --oif=2.0.0.3/8 1
 net node 2.0.0.3 route add 3.1.0.1/24 --oif=3.1.0.1/24 1
 

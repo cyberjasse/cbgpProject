@@ -17,7 +17,6 @@ net link 1.0.0.2 1.0.0.4 igp-weight --bidir 10
 net add link 1.0.0.3 1.0.0.4
 net link 1.0.0.3 1.0.0.4 igp-weight --bidir 1
 
-
 #Spring jason
 net add domain 2 igp
 net add node 2.0.0.1
@@ -36,6 +35,20 @@ net add link 2.0.0.2 2.0.0.4
 net link 2.0.0.2 2.0.0.4 igp-weight --bidir 10
 net add link 2.0.0.3 2.0.0.4
 net link 2.0.0.3 2.0.0.4 igp-weight --bidir 1
+
+#Interdomain BigCarrier-Spring
+net add link 1.0.0.2 2.0.0.2
+net add link 1.0.0.1 2.0.0.1
+net add link 1.0.0.3 2.0.0.3
+net add link 1.0.0.4 2.0.0.4
+net node 1.0.0.1 route add 2.0.0.1/8 --oif=2.0.0.1/8 65
+net node 1.0.0.2 route add 2.0.0.2/8 --oif=2.0.0.2/8 70
+net node 1.0.0.3 route add 2.0.0.3/8 --oif=2.0.0.3/8 70
+net node 1.0.0.4 route add 2.0.0.4/8 --oif=2.0.0.4/8 75
+net node 2.0.0.1 route add 1.0.0.1/8 --oif=1.0.0.1/8 65
+net node 2.0.0.2 route add 1.0.0.2/8 --oif=1.0.0.2/8 70
+net node 2.0.0.3 route add 1.0.0.3/8 --oif=1.0.0.3/8 70
+net node 2.0.0.4 route add 1.0.0.4/8 --oif=1.0.0.4/8 75
 
 #iCompany jason
 net add domain 200 igp

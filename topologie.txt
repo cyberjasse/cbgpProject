@@ -55,6 +55,14 @@ net add domain 200 igp
 net add node 2.1.0.1
 net node 2.1.0.1 domain 200
 
+#Interdomain Spring-iCompany
+net node 2.0.0.1 route add 2.1.0.1/16 --oif=2.1.0.1/16 2
+net node 2.0.0.2 route add 2.1.0.1/16 --oif=2.1.0.1/16 2
+net node 2.0.0.3 route add 2.1.0.1/16 --oif=2.1.0.1/16 8
+net node 2.1.0.1 route add 2.0.0.1/8 --oif=2.0.0.1/8 2
+net node 2.1.0.1 route add 2.0.0.2/8 --oif=2.0.0.2/8 2
+net node 2.1.0.1 route add 2.0.0.3/8 --oif=2.0.0.3/8 8
+
 #Abilene jason
 net add domain 11537 igp
 net add node 3.0.0.1

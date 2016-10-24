@@ -125,4 +125,20 @@ net add node 139.165.0.2
 net node 139.165.0.1 domain 65534
 net node 139.165.0.2 domain 65534
 
+#Interdomain Belnet - UCL 
+net add link 130.104.0.1 4.1.0.1
+net add link 130.104.0.2 4.1.0.2
+net node 130.104.0.1 route 4.1.0.1/24 --oif=4.1.0.1/24 1
+net node 4.1.0.1 route 130.104.0.1/16 --oif=130.104.0.1/16 1
+net node 130.104.0.2 route 4.1.0.2/24 --oif=4.1.0.2/24 1
+net node 4.1.0.2 route 130.104.0.2/16 --oif=130.104.0.2/16 1
+
+
+#Interdomain Belnet - ULg
+net add link 139.165.0.1 4.1.0.1
+net add link 139.165.0.2 4.1.0.2
+
+#Interdomain Belnet - Geant
+
+
 #https://github.com/lvanbever/cbgp/blob/master/examples/example-igp-change.cli

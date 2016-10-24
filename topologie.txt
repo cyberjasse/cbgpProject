@@ -90,7 +90,7 @@ net add link 4.0.0.3 4.0.0.4
 net link 4.0.0.3 4.0.0.4 igp-weight --bidir 10
 net add link 4.0.0.1 4.0.0.3
 net link 4.0.0.1 4.0.0.3 igp-weight --bidir 5
-
+net domain 20965 compute
 
 #belnet alicia
 net add domain 2611 igp
@@ -101,11 +101,13 @@ net add link 4.1.0.1 4.1.0.2
 net link 4.1.0.1 4.1.0.2 igp-weight --bidir 1
 net node 4.1.0.1 domain 2611
 net node 4.1.0.2 domain 2611
+net domain 2611 compute
 
 #CERN alicia
 net add domain 201 igp
 net add node 4.200.0.1
 net node 4.200.0.1 domain 201
+net domain 201 compute
 
 #UCLA jason
 
@@ -117,6 +119,7 @@ net add link 130.104.0.1 130.104.0.2
 net link 130.104.0.1 130.104.0.2 igp-weight --bidir 1
 net node 130.104.0.1 domain 65535
 net node 130.104.0.2 domain 65535
+net domain 65535 compute
 
 #ULg alicia
 net add domain 65534 igp
@@ -124,21 +127,37 @@ net add node 139.165.0.1
 net add node 139.165.0.2
 net node 139.165.0.1 domain 65534
 net node 139.165.0.2 domain 65534
+net domain 65534 compute
 
 #Interdomain Belnet - UCL 
 net add link 130.104.0.1 4.1.0.1
 net add link 130.104.0.2 4.1.0.2
-net node 130.104.0.1 route 4.1.0.1/24 --oif=4.1.0.1/24 1
-net node 4.1.0.1 route 130.104.0.1/16 --oif=130.104.0.1/16 1
-net node 130.104.0.2 route 4.1.0.2/24 --oif=4.1.0.2/24 1
-net node 4.1.0.2 route 130.104.0.2/16 --oif=130.104.0.2/16 1
+net node 130.104.0.1 route add 4.1.0.1/24 --oif=4.1.0.1/24 1
+net node 4.1.0.1 route add 130.104.0.1/16 --oif=130.104.0.1/16 1
+net node 130.104.0.2 route add 4.1.0.2/24 --oif=4.1.0.2/24 1
+net node 4.1.0.2 route add 130.104.0.2/16 --oif=130.104.0.2/16 1
 
 
 #Interdomain Belnet - ULg
 net add link 139.165.0.1 4.1.0.1
 net add link 139.165.0.2 4.1.0.2
+net node 139.165.0.1 route add 4.1.0.1/24 --oif=4.1.0.1/24 1
+net node 4.1.0.1 route add 139.165.0.1/16 --oif=139.165.0.1/16 1
+net node 139.165.0.2 route add 4.1.0.2/24 --oif=4.1.0.2/24 1
+net node 4.1.0.2 route add 139.165.0.2/16 --oif=139.165.0.2/16 1
 
 #Interdomain Belnet - Geant
+net add link 4.1.0.1 4.0.0.3
+net add link 4.1.0.2 4.0.0.4
+net node 4.1.0.1 route add 4.0.0.3/24 --oif=4.0.0.3/24 5
+net node 4.0.0.3 route add 4.1.0.1/24 --oif=4.1.0.1/24 5
+net node 4.1.0.2 route add 4.0.0.4/24 --oif=4.0.0.4/24 5
+net node 4.0.0.4 route add 4.1.0.2/24 --oif=4.1.0.2/24 5
+
+#Interdomain GEANT - CERN
+net add link 4.0.0.3 4.200.0.1
+net node 4.0.0.3 route add 4.200.0.1/16 --oif=4.200.0.1/16 5
+net node 4.200.0.1 route add 4.0.0.3/24 --oif=4.0.0.3/24 5
 
 
 #https://github.com/lvanbever/cbgp/blob/master/examples/example-igp-change.cli

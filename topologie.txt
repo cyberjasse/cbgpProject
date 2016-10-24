@@ -81,6 +81,10 @@ net add link 3.0.0.2 3.0.0.3
 net link 3.0.0.2 3.0.0.3 igp-weight --bidir 50
 net domain 11537 compute
 
+#Interdomain Spring-Abilene
+net node 2.0.0.3 route add 3.0.0.1/24 --oif=3.0.0.1/24 1
+net node 3.0.0.1 route add 2.0.0.3/8 --oif=2.0.0.3/8 1
+
 #GEANT alicia
 net add domain 20965 igp
 net add node 4.0.0.1

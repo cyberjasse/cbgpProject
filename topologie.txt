@@ -133,6 +133,10 @@ net node 3.0.0.2 route add 3.1.0.2/16 --oif=3.1.0.2/16 1
 net node 3.1.0.1 route add 3.0.0.2/24 --oif=3.0.0.2/24 1
 net node 3.1.0.2 route add 3.0.0.2/24 --oif=3.0.0.2/24 1
 
+#interdomain UCLA-Spring
+net node 3.1.0.1 route add 2.0.0.3/8 --oif=2.0.0.3/8 1
+net node 2.0.0.3 route add 3.1.0.1/24 --oif=3.1.0.1/24 1
+
 #UCL alicia
 net add domain 65535 igp
 net add node 130.104.0.1

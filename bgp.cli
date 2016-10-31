@@ -22,24 +22,36 @@ bgp router 1.0.0.1
 	add peer 2 2.0.0.1
 	peer 2.0.0.1 next-hop-self
 	peer 2.0.0.1 up
+	add peer 20965 4.0.0.2
+	peer 4.0.0.2 next-hop-self
+	peer 4.0.0.2 up
 
 bgp router 1.0.0.2
 	add network 1.0.0.0/8
 	add peer 2 2.0.0.2
 	peer 2.0.0.2 next-hop-self
 	peer 2.0.0.2 up
+	add peer 2611 4.1.0.2
+	peer 4.1.0.2 next-hop-self
+	peer 4.1.0.2 up
 
 bgp router 1.0.0.3
 	add network 1.0.0.0/8
 	add peer 2 2.0.0.3
 	peer 2.0.0.3 next-hop-self
 	peer 2.0.0.3 up
+	add peer 20965 4.0.0.1
+	peer 4.0.0.1 next-hop-self
+	peer 4.0.0.1 up
 
 bgp router 1.0.0.4
 	add network 1.0.0.0/8
 	add peer 2 2.0.0.4
 	peer 2.0.0.4 next-hop-self
 	peer 2.0.0.4 up
+	add peer 20965 4.0.0.1
+	peer 4.0.0.1 next-hop-self
+	peer 4.0.0.1 up
 
 #bgp Spring
 bgp add router 2 2.0.0.1
@@ -91,3 +103,125 @@ bgp router 3.0.0.1
 	add peer 2 2.0.0.3
 	peer 2.0.0.3 next-hop-self
 	peer 2.0.0.3 up
+	add peer 20965 4.0.0.1
+	peer 4.0.0.1 next-hop-self
+	peer 4.0.0.1 up
+
+bgp router 3.0.0.2
+	add network 3.0.0.0/24
+	add peer 52 3.1.0.1
+	peer 3.1.0.1 next-hop-self
+	peer 3.1.0.1 up
+	add peer 52 3.1.0.2
+	peer 3.1.0.2 next-hop-self
+	peer 3.1.0.2 up
+
+bgp router 3.0.0.3
+	add network 3.0.0.0/24
+	add peer 20965 4.0.0.3
+	peer 4.0.0.3 next-hop-self
+	peer 4.0.0.3 up
+
+#GEANT
+bgp add router 20965 4.0.0.1
+bgp add router 20965 4.0.0.2
+bgp add router 20965 4.0.0.3
+bgp add router 20965 4.0.0.4
+
+bgp router 4.0.0.1
+	add network 4.0.0.0/24
+	add peer 1 1.0.0.3
+	add peer 1 1.0.0.4
+	peer 1.0.0.3 next-hop-self
+	peer 1.0.0.4 next-hop-self
+	peer 1.0.0.3 up
+	peer 1.0.0.4 up
+
+bgp router 4.0.0.2
+	add network 4.0.0.0/24
+	add peer 1 1.0.0.1
+	peer 1.0.0.1 next-hop-self
+	peer 1.0.0.1 up
+
+bgp router 4.0.0.3
+	add network 4.0.0.0/24
+	add peer 2611 4.1.0.1
+	peer 4.1.0.1 next-hop-self
+	peer 4.1.0.1 up
+
+bgp router 4.0.0.4
+	add network 4.0.0.0/24
+	add peer 2611 4.1.0.2
+	peer 4.1.0.2 next-hop-self
+	peer 4.1.0.2 up
+
+#BELNET
+bgp add router 2611 4.1.0.1
+bgp add router 2611 4.1.0.2
+
+bgp router 4.1.0.1
+	add network 4.1.0.0/24
+	add peer 20965 4.0.0.3
+	add peer 65535 130.104.0.1
+	add peer 65534 139.165.0.1
+	peer 4.0.0.3 next-hop-self
+	peer 130.104.0.1 next-hop-self
+	peer 139.165.0.1 next-hop-self
+	peer 4.0.0.3 up
+	peer 130.104.0.1 up
+	peer 139.165.0.1 up
+
+bgp router 4.1.0.2
+	add network 4.1.0.0/24
+	add peer 20965 4.0.0.4
+	add peer 65535 130.104.0.2
+	add peer 65534 139.165.0.2
+	peer 4.0.0.4 next-hop-self
+	peer 130.104.0.2 next-hop-self
+	peer 139.165.0.2 next-hop-self
+	peer 4.0.0.4 up
+	peer 130.104.0.2 up
+	peer 139.165.0.2 up
+
+#CERN
+bgp add router 201 4.200.0.1
+bgp router 4.200.0.1
+	add network 4.200.0.0/16
+	add peer 20965 4.0.0.3
+	add peer 11537 3.0.0.3
+	peer 4.0.0.3 next-hop-self
+	peer 3.0.0.3 next-hop-self
+	peer 4.0.0.3 up 
+	peer 3.0.0.3 up
+
+#UCL
+bgp add router 65535 130.104.0.1
+bgp add router 65535 130.104.0.2
+
+bgp router 130.104.0.1
+	add network 130.104.0.0/16
+	add peer 2611 4.1.0.1
+	peer 4.1.0.1 next-hop-self
+	peer 4.1.0.1 up
+
+bgp router 130.104.0.2
+	add network 130.104.0.0/16
+	add peer 2611 4.1.0.2
+	peer 4.1.0.2 next-hop-self
+	peer 4.1.0.2 up
+
+#ULg
+bgp add router 65534 139.165.0.1
+bgp add router 65534 139.165.0.2
+
+bgp router 139.165.0.1
+	add network 139.165.0.0/16
+	add peer 2611 4.1.0.1
+	peer 4.1.0.1 next-hop-self
+	peer 4.1.0.1 up
+
+bgp router 139.165.0.2
+	add network 139.165.0.0/16
+	add peer 2611 4.1.0.2
+	peer 4.1.0.2 next-hop-self
+	peer 4.1.0.2 up

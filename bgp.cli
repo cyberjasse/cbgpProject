@@ -176,12 +176,15 @@ bgp router 4.1.0.2
 	add peer 20965 4.0.0.4
 	add peer 65535 130.104.0.2
 	add peer 65534 139.165.0.2
+	add peer 1 1.0.0.1
 	peer 4.0.0.4 next-hop-self
 	peer 130.104.0.2 next-hop-self
 	peer 139.165.0.2 next-hop-self
+	peer 1.0.0.1 next-hop-self
 	peer 4.0.0.4 up
 	peer 130.104.0.2 up
 	peer 139.165.0.2 up
+	peer 1.0.0.1 up
 
 #CERN
 bgp add router 201 4.200.0.1
@@ -193,6 +196,24 @@ bgp router 4.200.0.1
 	peer 3.0.0.3 next-hop-self
 	peer 4.0.0.3 up 
 	peer 3.0.0.3 up
+
+#UCLA
+bgp add router 52 3.1.0.1
+bgp add router 52 3.1.0.2
+bgp router 3.1.0.1
+	add network 3.1.0.1/16
+	add peer 11537 3.0.0.2
+	add peer 2 2.0.0.3
+	peer 3.0.0.2 next-hop-self
+	peer 2.0.0.3 next-hop-self
+	peer 3.0.0.2 up
+	peer 2.0.0.3 up
+
+bgp router 3.1.0.2
+	add network 3.1.0.2/16
+	add peer 11537 3.0.0.2
+	peer 3.0.0.2 next-hop-self
+	peer 3.0.0.2 up
 
 #UCL
 bgp add router 65535 130.104.0.1

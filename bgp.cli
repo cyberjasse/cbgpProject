@@ -110,8 +110,11 @@ bgp add router 52 3.1.0.2
 bgp router 3.1.0.1
 	add network 3.1.0.1/16
 	add peer 11537 3.0.0.2
+	add peer 2 2.0.0.3
 	peer 3.0.0.2 next-hop-self
+	peer 2.0.0.3 next-hop-self
 	peer 3.0.0.2 up
+	peer 2.0.0.3 up
 
 bgp router 3.1.0.2
 	add network 3.1.0.2/16

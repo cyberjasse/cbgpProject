@@ -3,8 +3,11 @@ bgp add router 200 2.1.0.1
 bgp router 2.1.0.1
 	add network 2.1/16
 	add peer 2 2.0.0.1
+	peer 2.0.0.1 next-hop-self
 	add peer 2 2.0.0.2
+	peer 2.0.0.2 next-hop-self
 	add peer 2 2.0.0.3
+	peer 2.0.0.3 next-hop-self
 	peer 2.0.0.1 up
 	peer 2.0.0.2 up
 	peer 2.0.0.3 up
@@ -14,23 +17,26 @@ bgp add router 1 1.0.0.1
 bgp add router 1 1.0.0.2
 bgp add router 1 1.0.0.3
 bgp add router 1 1.0.0.4
-bgp domain 1 full-mesh
 bgp router 1.0.0.1
+	add network 1.0.0.0/8
 	add peer 2 2.0.0.1
 	peer 2.0.0.1 next-hop-self
 	peer 2.0.0.1 up
 
 bgp router 1.0.0.2
+	add network 1.0.0.0/8
 	add peer 2 2.0.0.2
 	peer 2.0.0.2 next-hop-self
 	peer 2.0.0.2 up
 
 bgp router 1.0.0.3
+	add network 1.0.0.0/8
 	add peer 2 2.0.0.3
 	peer 2.0.0.3 next-hop-self
 	peer 2.0.0.3 up
 
 bgp router 1.0.0.4
+	add network 1.0.0.0/8
 	add peer 2 2.0.0.4
 	peer 2.0.0.4 next-hop-self
 	peer 2.0.0.4 up
@@ -40,8 +46,8 @@ bgp add router 2 2.0.0.1
 bgp add router 2 2.0.0.2
 bgp add router 2 2.0.0.3
 bgp add router 2 2.0.0.4
-bgp domain 2 full-mesh
 bgp router 2.0.0.1
+	add network 2.0.0.0/8
 	add peer 200 2.1.0.1
 	peer 2.1.0.1 next-hop-self
 	peer 2.1.0.1 up
@@ -50,6 +56,7 @@ bgp router 2.0.0.1
 	peer 1.0.0.1 up
 
 bgp router 2.0.0.2
+	add network 2.0.0.0/8
 	add peer 200 2.1.0.1
 	peer 2.1.0.1 next-hop-self
 	peer 2.1.0.1 up
@@ -58,6 +65,7 @@ bgp router 2.0.0.2
 	peer 1.0.0.2 up
 
 bgp router 2.0.0.3
+	add network 2.0.0.0/8
 	add peer 200 2.1.0.1
 	peer 2.1.0.1 next-hop-self
 	peer 2.1.0.1 up
@@ -66,6 +74,9 @@ bgp router 2.0.0.3
 	peer 1.0.0.3 up
 
 bgp router 2.0.0.4
+	add network 2.0.0.0/8
 	add peer 1 1.0.0.4
 	peer 1.0.0.4 next-hop-self
 	peer 1.0.0.4 up
+
+#bgp Abilene

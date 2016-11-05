@@ -34,9 +34,6 @@ bgp router 1.0.0.2
 	add peer 2611 4.1.0.2
 	peer 4.1.0.2 next-hop-self
 	peer 4.1.0.2 up
-	add peer 2611 4.1.0.2
-	peer 4.1.0.2 next-hop-self
-	peer 4.1.0.2 up
 
 bgp router 1.0.0.3
 	add network 1.0.0.0/8
@@ -173,6 +170,7 @@ bgp add router 2611 4.1.0.2
 
 bgp router 4.1.0.1
 	add network 4.1.0.0/24
+	add network 1.1.0.0/24
 	add peer 20965 4.0.0.3
 	add peer 65535 130.104.0.1
 	add peer 65534 139.165.0.1
@@ -202,6 +200,7 @@ bgp router 4.1.0.2
 bgp add router 201 4.200.0.1
 bgp router 4.200.0.1
 	add network 4.200.0.0/16
+	add network 3.200.0.0/16
 	add peer 20965 4.0.0.3
 	add peer 11537 3.0.0.3
 	peer 4.0.0.3 next-hop-self
@@ -214,6 +213,7 @@ bgp add router 52 3.1.0.1
 bgp add router 52 3.1.0.2
 bgp router 3.1.0.1
 	add network 3.1.0.1/16
+	add network 2.2.1.0/24
 	add peer 11537 3.0.0.2
 	add peer 2 2.0.0.3
 	peer 3.0.0.2 next-hop-self

@@ -1,0 +1,10 @@
+#CERN
+bgp add router 201 4.200.0.1
+bgp router 4.200.0.1
+	add network 4.200.0.0/16
+	add peer 20965 4.0.0.3
+	add peer 11537 3.0.0.3
+	peer 4.0.0.3 next-hop-self
+	peer 3.0.0.3 next-hop-self
+	peer 4.0.0.3 up 
+	peer 3.0.0.3 up

@@ -1,0 +1,27 @@
+#bgp Abilene
+bgp add router 11537 3.0.0.1
+bgp add router 11537 3.0.0.2
+bgp add router 11537 3.0.0.3
+bgp router 3.0.0.1
+	add network 3.0.0.0/24
+	add peer 2 2.0.0.3
+	peer 2.0.0.3 next-hop-self
+	peer 2.0.0.3 up
+	add peer 20965 4.0.0.1
+	peer 4.0.0.1 next-hop-self
+	peer 4.0.0.1 up
+
+bgp router 3.0.0.2
+	add network 3.0.0.0/24
+	add peer 52 3.1.0.1
+	peer 3.1.0.1 next-hop-self
+	peer 3.1.0.1 up
+	add peer 52 3.1.0.2
+	peer 3.1.0.2 next-hop-self
+	peer 3.1.0.2 up
+
+bgp router 3.0.0.3
+	add network 3.0.0.0/24
+	add peer 20965 4.0.0.3
+	peer 4.0.0.3 next-hop-self
+	peer 4.0.0.3 up

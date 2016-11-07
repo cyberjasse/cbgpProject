@@ -8,7 +8,19 @@ bgp router 3.1.0.1
 	peer 3.0.0.2 next-hop-self
 	peer 2.0.0.3 next-hop-self
 	peer 3.0.0.2 
-		filter out 
+		filter out
+			add-rule 
+				match any
+				action deny
+				exit
+			add-rule
+				match "prefix is 3.1.0.0/16"
+				action accept
+				exit
+			exit
+		exit
+	peer 2.0.0.3 
+		filter out
 			add-rule 
 				match any
 				action deny
@@ -29,6 +41,18 @@ bgp router 3.1.0.2
 	add network 3.1.0.2/16
 	add peer 11537 3.0.0.2
 	peer 3.0.0.2 next-hop-self
+	peer 3.0.0.2 
+		filter out
+			add-rule 
+				match any
+				action deny
+				exit
+			add-rule
+				match "prefix is 3.1.0.0/16"
+				action accept
+				exit
+			exit
+		exit
 	peer 3.0.0.2 up
 	add peer 52 3.1.0.1
 	peer 3.1.0.1 next-hop-self

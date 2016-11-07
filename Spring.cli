@@ -11,6 +11,12 @@ bgp router 2.0.0.1
 	add peer 1 1.0.0.1
 	peer 1.0.0.1 next-hop-self
 	peer 1.0.0.1 up
+	add peer 2 2.0.0.2
+	peer 2.0.0.2 next-hop-self
+	peer 2.0.0.2 up
+	add peer 2 2.0.0.3
+	peer 2.0.0.3 next-hop-self
+	peer 2.0.0.3 up
 
 bgp router 2.0.0.2
 	add network 2.0.0.0/8
@@ -20,6 +26,12 @@ bgp router 2.0.0.2
 	add peer 1 1.0.0.2
 	peer 1.0.0.2 next-hop-self
 	peer 1.0.0.2 up
+	add peer 2 2.0.0.1
+	peer 2.0.0.1 next-hop-self
+	peer 2.0.0.1 up
+	add peer 2 2.0.0.4
+	peer 2.0.0.4 next-hop-self
+	peer 2.0.0.4 up
 
 bgp router 2.0.0.3
 	add network 2.0.0.0/8
@@ -38,6 +50,9 @@ bgp router 2.0.0.3
 	add peer 2 2.0.0.4
 	peer 2.0.0.4 next-hop-self
 	peer 2.0.0.4 up
+	add peer 2 2.0.0.2-1
+	peer 2.0.0.1 next-hop-self
+	peer 2.0.0.1 up
 
 bgp router 2.0.0.4
 	add network 2.0.0.0/8
@@ -47,3 +62,6 @@ bgp router 2.0.0.4
 	add peer 2 2.0.0.3
 	peer 2.0.0.3 next-hop-self
 	peer 2.0.0.3 up
+	add peer 2 2.0.0.2
+	peer 2.0.0.2 next-hop-self
+	peer 2.0.0.2 up

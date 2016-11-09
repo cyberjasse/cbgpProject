@@ -7,9 +7,15 @@ bgp router 130.104.0.1
 	add peer 2611 4.1.0.1
 	peer 4.1.0.1 next-hop-self
 	peer 4.1.0.1 up
+	add peer 65535 130.104.0.2
+	peer 130.104.0.2 next-hop-self
+	peer 130.104.0.2 up
 
 bgp router 130.104.0.2
 	add network 130.104.0.0/16
 	add peer 2611 4.1.0.2
 	peer 4.1.0.2 next-hop-self
 	peer 4.1.0.2 up
+	add peer 65535 130.104.0.1
+	peer 130.104.0.1 next-hop-self
+	peer 130.104.0.1 up

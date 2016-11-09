@@ -7,4 +7,19 @@
 \begin{document}
 \include{titlepage}
 
+\section*{Introduction}
+Le but du projet est de simuler la topologie de la figure ? avec l'outil cbgp et ensuite de configurer chaque routeur comme ou routeur BGP et de créer des filtres pour chaque routeur.
+Pour chaque filtre, on réfléchit pour servir uniquement les intérêts de l'AS en question.
+
+\section{Filtres}
+Un client paie à son fournisseur la bande passante utilisée sur le(s) liens qui les connectent, peut importe le sens du trafic.
+De plus, certaines routes sont à préférer à d'autres pour des questions de latences (affiché en ms sur chaque lien dans la figure ?).
+\subsection{Règles générales}
+Voici quelques raisonnements utilisés par plusieurs AS.
+\begin{enumerate}
+ \item Si on a plusieurs fournisseurs, on fait en sorte que les routes annoncées par un fournisseurs ne soient pas anoncé à un autre.
+ Sinon le fournisseur qui reçoit la route fera passer du trafic par chez nous pour le trafic passant par l'autre fournisseur.
+\end{enumerate}
+
+\subsection{UCLA}
 \end{document}

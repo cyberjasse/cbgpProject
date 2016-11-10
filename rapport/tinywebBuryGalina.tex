@@ -1,4 +1,4 @@
-\documentclass[a4paper, 12pt]{report}
+\documentclass[a4paper, 12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage[pdftex]{graphicx}
@@ -7,10 +7,13 @@
 \begin{document}
 \include{titlepage}
 
-\section*{Introduction}
+\section{Introduction}
 Le but du projet est de simuler la topologie de la figure ? avec l'outil cbgp et ensuite de configurer chaque routeur comme étant un routeur BGP et de créer des filtres pour chaque routeur.
 Pour chaque filtre, on réfléchit pour servir uniquement les intérêts de l'AS en question.
+\\
 
+Pour inclure tous les fichiers via l'invite de commande cbgp, il suffit d'inclure juste le fichier tiniWeb.cli.
+Ensuite il faut taper \texttt{sim run} pour que les routes se transmettent.
 \section{Filtres}
 Un client paie à son fournisseur la bande passante utilisée sur le(s) liens qui les connectent, peut importe le sens du trafic.
 De plus, certaines routes sont à préférer à d'autres pour des questions de latences (affiché en ms sur chaque lien dans la figure ?).
@@ -25,17 +28,19 @@ Voici quelques raisonnements que je vais utiliser pour plusieurs AS.
 
 \subsection{UCLA}
 J'applique la règle 1.
-En effet, nous ne voulons pas que Spring transmettent des paquets à Abilene en utilisant UCLA comme intermédiaire.
-Pour ce faire, pour chaque routeur j'indique qu'aucune route ne doit être annoncées aux fournisseurs sauf celle dont le préfixe correspond aux réseau UCLA.
+En effet, nous ne voulons pas que Spring transmettent des paquets à Abilene en utilisant UCLA comme intermédiaire (et inversément).
+Pour ce faire, pour chaque routeur j'indique qu'aucune route ne doit être annoncées aux fournisseurs sauf celles dont le préfixe correspond aux réseau UCLA.
 
 \subsection{CERN}
 Imaginons qu'un AS doit nous transmettrent des paquets et qu'il a plusieurs choix de route.
 Mais que l'une passe par GEANT et l'autre passe par Abilene.
 Alors on voudrait faire en sorte que cet AS préfère la route passant par Abilene puisque GEANT fourni un transit commercial et pas Abilene.
 On aura alors moins de bande passante à payer à GEANT.
+\\
 
 On va donc ajouter le numéro d'AS de CERN beaucoup de fois dans l'AS-PATH passant par GEANT pour que ces routes soient très défavorisées.
 En effet, habituellement, un routeur BGP préviligiera les routes dont l'AS-PATH est le plus court. 
+\\
 
 De plus, par le même raisonnement que UCLA, on ne communique pas de route ne venant pas du réseau CERN.
 
@@ -50,7 +55,7 @@ Et si il s'y trouve, la route n'est pas communiquée sinon cela créera une bouc
 Néanmoins, par prudence, nous allons quand-même configurer les filtres comme chez UCLA.
 
 \subsection{ULg}
-Le raisonnement à avoir est exactement le même que pour UCLA
+Le raisonnement à avoir est exactement le même que pour UCL.
 
 \subsection{Abilene}
 J'applique la règle 2. Toutes les routes venant de GEANT ne doivent pas être transmisent à Spring.
@@ -65,10 +70,12 @@ Cela est possible grâce à la commande \texttt{path RE} de CBGP.
 
 \subsection{Spring}
 Spring n'a pas de fournisseur et donc il n'est pas nécessaire d'appliquer la règle 2.
+\\
 
 En revanche, la règle 3 est applicable.
 Mais elle sera d'office respéctée puisque les routes passant par UCLA et Abilene auront un AS-PATH plus grand que les routes à même destinations passant par UCLA mais pas Abilene.
 Et que donc le routeur privilègiera la route ne passant pas par Abilene.
+\\
 
 les algorithmes de plus court appliquée sur chaque routeur ne prennent pas en compte les noeuds internes aux AS étrangers.
 C'est pour cela que si iCompany doit transmettre un paquet passant par Abilene, il ne l'envoie pas à R3 de Spring via le lien de latence 8ms.
@@ -77,6 +84,6 @@ On va donc privilegier ce lien à 8ms en ajoutant le numéro d'AS de Spring 2 fo
 
 \subsection{BigCarrier}
 Il n'est pas nécessaire d'appliquer la règle 2 puisque BigCarrier n'a pas de fournisseur.
-La règle 3 est applicable et appliquée d'office, normalement...
+La règle 3 est applicable et appliquée d'office, normalement.
 
 \end{document}

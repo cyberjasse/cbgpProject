@@ -28,13 +28,12 @@ Voici quelques raisonnements que je vais utiliser pour plusieurs AS.
 
 \subsection{UCLA}
 J'applique la règle 1.
-En effet, nous ne voulons pas que Spring transmettent des paquets à Abilene en utilisant UCLA comme intermédiaire (et inversément).
+En effet, nous ne voulons pas que Spring transmettent des paquets à Abilene en utilisant UCLA comme intermédiaire (et inversement).
 Pour ce faire, pour chaque routeur j'indique qu'aucune route ne doit être annoncée aux fournisseurs sauf celles dont le préfixe correspond au réseau UCLA.
 
 \subsection{CERN}
-Imaginons qu'un AS doit nous transmettre des paquets et qu'il a plusieurs choix de route.
-Mais que l'une passe par GEANT et l'autre passe par Abilene.
-Alors on voudrait faire en sorte que cet AS préfère la route passant par Abilene puisque GEANT fourni un transit commercial et pas Abilene.
+Imaginons qu'un AS doit nous transmettre des paquets et qu'il a plusieurs choix de route : une passant par GEANT et l'autre par Abilene.
+Alors, on voudra faire en sorte que cet AS préfère la route passant par Abilene puisque GEANT fourni un transit commercial et pas Abilene.
 On aura alors moins de bande passante à payer à GEANT.
 \\
 
@@ -75,10 +74,10 @@ Spring n'a pas de fournisseur et donc il n'est pas nécessaire d'appliquer la r�
 
 En revanche, la règle 3 est applicable.
 Mais elle sera d'office respéctée puisque les routes passant par UCLA et Abilene auront un AS-PATH plus grand que les routes à même destinations passant par UCLA mais pas Abilene.
-Et que donc le routeur privilègiera la route ne passant pas par Abilene.
+Et que donc le routeur privilégiera la route ne passant pas par Abilene.
 \\
 
-les algorithmes de plus court appliquée sur chaque routeur ne prennent pas en compte les noeuds internes aux AS étrangers.
+Les algorithmes de plus court ?chemin? appliqués sur chaque routeur ne prennent pas en compte les nœuds internes aux AS étrangers.
 C'est pour cela que si iCompany doit transmettre un paquet passant par Abilene, il ne l'envoie pas à R3 de Spring via le lien de latence 8ms.
 (Avec la commande traceroute, on observe que le lien utilisé est un lien à 2ms vers R1 de Spring)
 On va donc privilegier ce lien à 8ms en ajoutant le numéro d'AS de Spring 2 fois dans l'AS-PATH au lien de 1 fois pour les routes transmisent par R1 et R2 de Spring.

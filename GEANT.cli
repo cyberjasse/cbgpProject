@@ -94,11 +94,21 @@ bgp router 4.0.0.3
 	add peer 20965 4.0.0.4
 	peer 4.0.0.4 next-hop-self
 	peer 4.0.0.4 up
+	#Je vais pas annoncer a 4.1.0.1 les routes venant de bigcarrier
 	peer 4.1.0.1
 		filter out
 			add-rule 
 				match "community is 1"
 				action deny
+				exit
+			add-rule
+			exit
+		exit
+	#Je declare les routes venant de BELNET comme etant de communaute 2611
+		filter in
+			add-rule
+				match any
+				action "community add 2611"
 				exit
 			exit
 		exit
@@ -115,6 +125,15 @@ bgp router 4.0.0.4
 	add network 4.0.0.0/24
 	add peer 2611 4.1.0.2
 	peer 4.1.0.2 next-hop-self
+	#Je declare les routes venant de BELNET comme etant de communaute 2611
+	peer 4.1.0.2
+		filter in
+			add-rule
+				match any
+				action "community add 2611"
+				exit
+			exit
+		exit
 	peer 4.1.0.2 up
 	add peer 20965 4.0.0.1
 	peer 4.0.0.1 next-hop-self
@@ -133,3 +152,33 @@ bgp router 4.0.0.4
 				exit
 		exit
 
+#Maintenant je vais empecher bigCarrier de connaitre les routes venant de BELNET
+bgp router 4.0.0.1
+	peer 1.0.0.3
+		filter out
+			add-rule
+				match "community is 2611"
+				action deny
+				exit
+			exit
+		exit
+	peer 1.0.0.4
+		filter out
+			add-rule
+				match "community is 2611"
+				action deny
+				exit
+			exit
+		exit
+	exit
+
+bgp router 4.0.0.2
+	peer 1.0.0.1
+		filter out
+			add-rule
+				match "community is 2611"
+				action deny
+				exit
+			exit
+		exit
+	exit

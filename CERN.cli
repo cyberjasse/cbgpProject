@@ -6,5 +6,35 @@ bgp router 4.200.0.1
 	add peer 11537 3.0.0.3
 	peer 4.0.0.3 next-hop-self
 	peer 3.0.0.3 next-hop-self
+	peer 4.0.0.3
+		filter in
+			add-rule 
+				match any
+				action "community add 20965:3"
+				exit
+			exit
+		exit
+	peer 3.0.0.3
+		filter in
+			add-rule 
+				match any
+				action "community add 11537:3"
+				exit
+			exit
+		filter out
+			add-rule 
+				match "community is 20965:3"
+				action deny
+				exit
+			exit
+		exit
+	peer 4.0.0.3
+		filter out
+			add-rule 
+				match "community is 20965:3"
+				action deny
+				exit
+			exit
+		exit
 	peer 4.0.0.3 up 
 	peer 3.0.0.3 up

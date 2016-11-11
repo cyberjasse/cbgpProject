@@ -62,11 +62,12 @@ bgp router 4.0.0.1
 				exit
 			exit
 		exit
+	#Je declare les routes venant de Abilene comme etant de communaute 11537
 	peer 3.0.0.1
 		filter in
 			add-rule 
 				match any
-				action "community add 11537:1"
+				action "community add 11537"
 				exit
 			exit
 		filter out
@@ -101,9 +102,7 @@ bgp router 4.0.0.3
 				match "community is 1"
 				action deny
 				exit
-			add-rule
 			exit
-		exit
 	#Je declare les routes venant de BELNET comme etant de communaute 2611
 		filter in
 			add-rule
@@ -112,11 +111,18 @@ bgp router 4.0.0.3
 				exit
 			exit
 		exit
+	#J'annonce pas a Abilene les routes venant de BigCarrier
 	peer 3.0.0.3
 		filter out
 			add-rule 
 				match "community is 1"
 				action deny
+				exit
+			exit
+		filter in
+			add-rule
+				match any
+				action "community add 11537"
 				exit
 			exit
 		exit
@@ -150,14 +156,19 @@ bgp router 4.0.0.4
 				match "community is 1"
 				action deny
 				exit
+			exit
 		exit
 
-#Maintenant je vais empecher bigCarrier de connaitre les routes venant de BELNET
+#Maintenant je vais empecher bigCarrier de connaitre les routes venant de BELNET et Abilene
 bgp router 4.0.0.1
 	peer 1.0.0.3
 		filter out
 			add-rule
 				match "community is 2611"
+				action deny
+				exit
+			add-rule
+				match "community is 11537"
 				action deny
 				exit
 			exit
@@ -166,6 +177,10 @@ bgp router 4.0.0.1
 		filter out
 			add-rule
 				match "community is 2611"
+				action deny
+				exit
+			add-rule
+				match "community is 11537"
 				action deny
 				exit
 			exit
@@ -177,6 +192,10 @@ bgp router 4.0.0.2
 		filter out
 			add-rule
 				match "community is 2611"
+				action deny
+				exit
+			add-rule
+				match "community is 11537"
 				action deny
 				exit
 			exit

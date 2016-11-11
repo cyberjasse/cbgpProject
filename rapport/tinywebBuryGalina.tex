@@ -41,8 +41,10 @@ On aura alors moins de bande passante à payer à GEANT.
 
 On va donc ajouter le numéro d'AS de CERN beaucoup de fois dans l'AS-PATH passant par GEANT pour que ces routes soient très défavorisées.
 En effet, habituellement, un routeur BGP préviligiera les routes dont l'AS-PATH est le plus court. 
-%% on doit aussi mettre une préférence vers Abilene? pour les paquets qu'on envoit de chez nous
+\\
 
+On va aussi également configurer une préférence plus élevée pour les routes communiquée par Abilene.
+Cette fois-ci ce sera la commande \texttt{local-pref} qui sera utilisée.
 
 \subsection{BELNET}
 Règle 1 appliquée.
@@ -58,15 +60,15 @@ Néanmoins, par prudence, nous allons quand-même configurer les filtres comme c
 Le raisonnement à avoir est exactement le même que pour UCL.
 
 \subsection{Abilene}
-Règle 2 et 4 appliquées. Toutes les routes venant de GEANT ne doivent pas être transmises à Spring. Toutes les routes venant de Spring ne doivent pas être transmises à UCLA.
+Règle 2 et 4 appliquées. Toutes les routes venant de GEANT ne doivent pas être transmises à Spring. Toutes les routes venant de Spring ne doivent pas être transmises à UCLA et CERN.
 
 \subsection{GEANT}
 Règle 2 et 4 appliquées. Toutes les routes venant de Abilene ne doivent pas être transmises à BigCarrier. Toutes les routes venant de BigCarrier ne doivent pas être transmises à Belnet.
+Mais on annonce néanmoins ces routes à CERN, vu l'exception.
 
 Et de plus, on sait que CERN a Abilene comme fournisseur sans but lucratif. %% est ce qu'il en est reellement concient? (nous oui vu qu'on voit le dessin mais pour Geant est-ce qu'il n'a pas connaissance que de ses propres liens?
-On suppose donc que CERN va essayer de favoriser les routes passant par Abilene et qu'il va probablement allonger artificiellement l'AS-PATH des routes passant par GEANT.
-Les paquets venant de BELNET à destination de CERN passeront alors surement pas Abilene.
-On va donc éviter cela en annonçant à BELNET les routes passant par CERN et Abilene.
+On suppose donc que CERN va essayer de favoriser les routes passant par Abilene.
+On va donc éviter cela en annonçant pas à BELNET les routes passant par CERN et Abilene.
 Cela est possible grâce à la commande \texttt{path RE} de CBGP.
 
 \subsection{Spring} %besoin de filtre?
@@ -78,7 +80,7 @@ Mais elle sera d'office respéctée puisque les routes passant par UCLA et Abile
 Et que donc le routeur privilégiera la route ne passant pas par Abilene.
 \\
 
-Les algorithmes de plus court ?chemin? appliqués sur chaque routeur ne prennent pas en compte les nœuds internes aux AS étrangers.
+Les algorithmes de plus court chemin appliqués sur chaque routeur ne prennent pas en compte les nœuds internes aux AS étrangers.
 C'est pour cela que si iCompany doit transmettre un paquet passant par Abilene, il ne l'envoie pas à R3 de Spring via le lien de latence 8ms.
 (Avec la commande traceroute, on observe que le lien utilisé est un lien à 2ms vers R1 de Spring)
 On va donc privilegier ce lien à 8ms en ajoutant le numéro d'AS de Spring 2 fois dans l'AS-PATH au lien de 1 fois pour les routes transmisent par R1 et R2 de Spring.

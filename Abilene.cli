@@ -15,7 +15,6 @@ bgp router 3.0.0.1
 				exit
 			exit
 		exit
-	peer 2.0.0.3 up
 	add peer 20965 4.0.0.1
 	peer 4.0.0.1 next-hop-self
 	peer 4.0.0.1 up
@@ -38,6 +37,13 @@ bgp router 3.0.0.2
 				action deny
 				exit
 			exit
+	#Toutes routes venant de UCLA, je declare comme etant de communaute 52
+		filter in
+			add-rule
+				match any
+				action "community add 52"
+				exit
+			exit
 		exit
 	peer 3.1.0.1 up
 	add peer 52 3.1.0.2
@@ -48,6 +54,12 @@ bgp router 3.0.0.2
 			add-rule 
 				match "community is 2:3"
 				action deny
+				exit
+			exit
+		filter in
+			add-rule
+				match any
+				action "community add 52"
 				exit
 			exit
 		exit
@@ -73,3 +85,16 @@ bgp router 3.0.0.3
 	add peer 11537 3.0.0.2
 	peer 3.0.0.2 next-hop-self
 	peer 3.0.0.2 up
+
+#Maintenant j'empeche Spring de connaitre les routes vers UCLA
+bgp router 3.0.0.1
+	peer 2.0.0.3
+		filter out
+			add-rule
+				match "community is 52"
+				action deny
+				exit
+			exit
+		up
+		exit
+	exit

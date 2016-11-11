@@ -4,6 +4,27 @@ bgp add router 20965 4.0.0.2
 bgp add router 20965 4.0.0.3
 bgp add router 20965 4.0.0.4
 
+bgp router 4.0.0.2
+	add network 4.0.0.0/24
+	add peer 1 1.0.0.1
+	peer 1.0.0.1 next-hop-self
+	#Je vais declarer la communaute 1 comme etant les routes venant de  bigcarrier
+	peer 1.0.0.1
+		filter in
+			add-rule 
+				match any
+				action "community add 1"
+				exit
+			exit
+		exit
+	peer 1.0.0.1 up
+	add peer 20965 4.0.0.1
+	peer 4.0.0.1 next-hop-self
+	peer 4.0.0.1 up
+	add peer 20965 4.0.0.4
+	peer 4.0.0.4 next-hop-self
+	peer 4.0.0.4 up
+
 bgp router 4.0.0.1
 	add network 4.0.0.0/24
 	add peer 1 1.0.0.3
@@ -24,11 +45,12 @@ bgp router 4.0.0.1
 	add peer 20965 4.0.0.4
 	peer 4.0.0.4 next-hop-self
 	peer 4.0.0.4 up
+	#Je vais declarer la communaute bc comme etant les routes venant de  bigcarrier
 	peer 1.0.0.3
 		filter in
 			add-rule 
 				match any
-				action "community add 1:3"
+				action "community add 1"
 				exit
 			exit
 		exit
@@ -36,7 +58,7 @@ bgp router 4.0.0.1
 		filter in
 			add-rule 
 				match any
-				action "community add 1:4"
+				action "community add 1"
 				exit
 			exit
 		exit
@@ -49,39 +71,11 @@ bgp router 4.0.0.1
 			exit
 		filter out
 			add-rule 
-				match "community is 1:3"
-				action deny
-				exit
-			add-rule 
-				match "community is 1:4"
-				action deny
-				exit
-			add-rule 
-				match "community is 1:1"
+				match "community is 1"
 				action deny
 				exit
 			exit
 		exit
-
-bgp router 4.0.0.2
-	add network 4.0.0.0/24
-	add peer 1 1.0.0.1
-	peer 1.0.0.1 next-hop-self
-	peer 1.0.0.1
-		filter in
-			add-rule 
-				match any
-				action "community add 1:1"
-				exit
-			exit
-		exit
-	peer 1.0.0.1 up
-	add peer 20965 4.0.0.1
-	peer 4.0.0.1 next-hop-self
-	peer 4.0.0.1 up
-	add peer 20965 4.0.0.4
-	peer 4.0.0.4 next-hop-self
-	peer 4.0.0.4 up
 
 bgp router 4.0.0.3
 	add network 4.0.0.0/24
@@ -103,15 +97,7 @@ bgp router 4.0.0.3
 	peer 4.1.0.1
 		filter out
 			add-rule 
-				match "community is 1:3"
-				action deny
-				exit
-			add-rule 
-				match "community is 1:4"
-				action deny
-				exit
-			add-rule 
-				match "community is 1:1"
+				match "community is 1"
 				action deny
 				exit
 			exit
@@ -119,15 +105,7 @@ bgp router 4.0.0.3
 	peer 3.0.0.3
 		filter out
 			add-rule 
-				match "community is 1:3"
-				action deny
-				exit
-			add-rule 
-				match "community is 1:4"
-				action deny
-				exit
-			add-rule 
-				match "community is 1:1"
+				match "community is 1"
 				action deny
 				exit
 			exit
@@ -150,15 +128,7 @@ bgp router 4.0.0.4
 	peer 4.1.0.2
 		filter out
 			add-rule 
-				match "community is 1:3"
-				action deny
-				exit
-			add-rule 
-				match "community is 1:4"
-				action deny
-				exit
-			add-rule 
-				match "community is 1:1"
+				match "community is 1"
 				action deny
 				exit
 		exit

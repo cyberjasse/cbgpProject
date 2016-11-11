@@ -46,7 +46,7 @@ Voici quelques raisonnements utilisés pour plusieurs AS:
  Sinon, le fournisseur qui reçoit la route pourra faire passer du trafic par chez nous pour atteindre l'autre fournisseur.
  \item Si on a un lien peer avec un autre AS, ne pas annoncer les routes venant de cet AS aux fournisseurs.
  \item Soit B client de A, C client de B et C client de A, A voudrait que le trafic à fournir à C évite de passer par B. %%c'est pas la meme chose pour lui? il s'en fout non? fin du moment que le client paie, il preferera celui qui paie le plus cher non? (et sinon avec l'as-path ca mettra le plus court direct) 
- \item Pour les réseaux gouvernementaux, ne pas annoncer les routes vers les fournisseurs payant aux clients.
+ \item Pour les réseaux gouvernementaux, ne pas annoncer les routes vers les fournisseurs payant aux clients et inversément.
 \end{enumerate}
 
 \subsection{UCLA}
@@ -82,10 +82,13 @@ Néanmoins, par prudence, nous allons quand-même configurer les filtres comme c
 Le raisonnement à avoir est exactement le même que pour UCL.
 
 \subsection{Abilene}
-Règle 2 et 4 appliquées. Toutes les routes venant de GEANT ne doivent pas être transmises à Spring. Toutes les routes venant de Spring ne doivent pas être transmises à UCLA et CERN.
+Règle 2 et 4 appliquées. Toutes les routes venant de GEANT ne doivent pas être transmises à Spring.
+Toutes les routes venant de Spring ne doivent pas être transmises à UCLA et CERN.
+Et inversément, les routes venant de UCLA et CERN ne doivent pas être annoncées à Spring.
 
 \subsection{GEANT}
-Règle 2 et 4 appliquées. Toutes les routes venant de Abilene ne doivent pas être transmises à BigCarrier. Toutes les routes venant de BigCarrier ne doivent pas être transmises à Belnet.
+Règle 2 et 4 appliquées. Toutes les routes venant de Abilene ne doivent pas être transmises à BigCarrier.
+Toutes les routes venant de BigCarrier ne doivent pas être transmises à Belnet et toutes les routes venant de BELNET ne doivent pas être annoncées à BigCarrier.
 Mais on annonce néanmoins ces routes à CERN, vu l'exception.
 
 Et de plus, on sait que CERN a Abilene comme fournisseur sans but lucratif. %% est ce qu'il en est reellement concient? (nous oui vu qu'on voit le dessin mais pour Geant est-ce qu'il n'a pas connaissance que de ses propres liens?

@@ -46,12 +46,12 @@ Voici quelques raisonnements utilisés pour plusieurs AS:
  Sinon, le fournisseur qui reçoit la route pourra faire passer du trafic par chez nous pour atteindre l'autre fournisseur.
  \item Si on a un lien peer avec un autre AS, ne pas annoncer les routes venant de cet AS aux fournisseurs.
  \item Soit B client de A, C client de B et C client de A, A voudrait que le trafic à fournir à C évite de passer par B. %%c'est pas la meme chose pour lui? il s'en fout non? fin du moment que le client paie, il preferera celui qui paie le plus cher non? (et sinon avec l'as-path ca mettra le plus court direct) 
- \item Pour les réseaux gouvernementaux, ne pas annoncer les routes vers les fournisseurs payant aux clients et inversément.
+ \item Pour les réseaux gouvernementaux, ne pas annoncer les routes vers les fournisseurs payant aux clients et inversement.
 \end{enumerate}
 
 \subsection{UCLA}
 J'applique la règle 1.
-En effet, nous ne voulons pas que Spring transmettent des paquets à Abilene en utilisant UCLA comme intermédiaire (et inversement).
+En effet, nous ne voulons pas que Spring transmette des paquets à Abilene en utilisant UCLA comme intermédiaire (et inversement).
 Pour ce faire, pour chaque routeur j'indique qu'aucune route ne doit être annoncée aux fournisseurs sauf celles dont le préfixe correspond au réseau UCLA.
 
 \subsection{CERN}
@@ -62,10 +62,10 @@ On aura alors moins de bande passante à payer à GEANT.
 \\
 
 On va donc ajouter le numéro d'AS de CERN beaucoup de fois dans l'AS-PATH passant par GEANT pour que ces routes soient très défavorisées.
-En effet, habituellement, un routeur BGP préviligiera les routes dont l'AS-PATH est le plus court. 
+En effet, habituellement, un routeur BGP privilégiera les routes dont l'AS-PATH est le plus court. 
 \\
 
-On va aussi également configurer une préférence plus élevée pour les routes communiquée par Abilene.
+On va également configurer une préférence plus élevée pour les routes communiquée par Abilene.
 Cette fois-ci ce sera la commande \texttt{local-pref} qui sera utilisée.
 
 \subsection{BELNET}
@@ -73,7 +73,7 @@ Règle 1 appliquée.
 
 \subsection{UCL}
 UCL n'a qu'un seul fournisseur. Donc il n'y a pas de danger si on annonce n'importe quelle route au fournisseur.
-Si UCL annonce une route venant de BELNET à BELNET, il ne devra normalement pas faire passer de paquet par UCL pour, par exemple, transfèrer un paquet de R1 de BELNET à R2 de BELNET.
+Si UCL annonce une route venant de BELNET à BELNET, il ne devra normalement pas faire passer de paquet par UCL pour, par exemple, transférer un paquet de R1 de BELNET à R2 de BELNET.
 En effet, les implémentations habituelles de routeur BGP lisent l'AS-PATH pour tester si son propre numéro d'AS ne s'y trouve pas.
 Et si il s'y trouve, la route n'est pas communiquée sinon cela créerait une boucle.
 Néanmoins, par prudence, nous allons quand-même configurer les filtres comme chez UCLA.
@@ -84,7 +84,7 @@ Le raisonnement à avoir est exactement le même que pour UCL.
 \subsection{Abilene}
 Règle 2 et 4 appliquées. Toutes les routes venant de GEANT ne doivent pas être transmises à Spring.
 Toutes les routes venant de Spring ne doivent pas être transmises à UCLA et CERN.
-Et inversément, les routes venant de UCLA et CERN ne doivent pas être annoncées à Spring.
+Et inversement, les routes venant de UCLA et CERN ne doivent pas être annoncées à Spring.
 
 \subsection{GEANT}
 Règle 2 et 4 appliquées. Toutes les routes venant de Abilene ne doivent pas être transmises à BigCarrier.
@@ -101,14 +101,14 @@ Spring n'a pas de fournisseur et donc il n'est pas nécessaire d'appliquer la r�
 \\
 
 En revanche, la règle 3 est applicable.
-Mais elle sera d'office respéctée puisque les routes passant par UCLA et Abilene auront un AS-PATH plus grand que les routes à même destinations passant par UCLA mais pas Abilene.
+Mais elle sera d'office respectée puisque les routes passant par UCLA et Abilene auront un AS-PATH plus grand que les routes à même destinations passant par UCLA mais pas Abilene.
 Et que donc le routeur privilégiera la route ne passant pas par Abilene.
 \\
 
 Les algorithmes de plus court chemin appliqués sur chaque routeur ne prennent pas en compte les nœuds internes aux AS étrangers.
 C'est pour cela que si iCompany doit transmettre un paquet passant par Abilene, il ne l'envoie pas à R3 de Spring via le lien de latence 8ms.
 (Avec la commande traceroute, on observe que le lien utilisé est un lien à 2ms vers R1 de Spring)
-On va donc privilegier ce lien à 8ms en ajoutant le numéro d'AS de Spring 2 fois dans l'AS-PATH au lien de 1 fois pour les routes transmisent par R1 et R2 de Spring.
+On va donc privilégier ce lien à 8ms en ajoutant le numéro d'AS de Spring 2 fois dans l'AS-PATH au lien de 1 fois pour les routes transmises par R1 et R2 de Spring.
 
 \subsection{BigCarrier}%besoin de filtre?
 Il n'est pas nécessaire d'appliquer la règle 2 puisque BigCarrier n'a pas de fournisseur.

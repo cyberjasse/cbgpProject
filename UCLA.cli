@@ -8,6 +8,12 @@ bgp router 3.1.0.1
 	peer 3.0.0.2 next-hop-self
 	peer 2.0.0.3 next-hop-self
 	peer 3.0.0.2 
+		filter in
+			add-rule
+				match any
+				action "local-pref 1000"
+				exit
+			exit
 		filter out
 			add-rule 
 				match any
@@ -20,6 +26,12 @@ bgp router 3.1.0.1
 			exit
 		exit
 	peer 2.0.0.3 
+		filter in
+			add-rule
+				match any
+				action "local-pref 10"
+				exit
+			exit
 		filter out
 			add-rule 
 				match any
@@ -27,7 +39,7 @@ bgp router 3.1.0.1
 				exit
 			add-rule
 				match "prefix is 3.1.0.0/16"
-				action accept
+				action "accept, as-path prepend 5"
 				exit
 			exit
 		exit
@@ -42,6 +54,12 @@ bgp router 3.1.0.2
 	add peer 11537 3.0.0.2
 	peer 3.0.0.2 next-hop-self
 	peer 3.0.0.2 
+		filter in
+			add-rule
+				match any
+				action "local-pref 1000"
+				exit
+			exit
 		filter out
 			add-rule 
 				match any

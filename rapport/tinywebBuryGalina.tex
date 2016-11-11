@@ -3,20 +3,42 @@
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage[pdftex]{graphicx}
 \usepackage[final]{pdfpages}
+\usepackage{color}
 
 \begin{document}
 \include{titlepage}
 
 \section{Introduction}
-Le but du projet est de simuler la topologie de la figure ? avec l'outil cbgp et ensuite de configurer chaque routeur comme étant un routeur BGP et de créer des filtres pour chaque routeur.
+Le but du projet est de simuler la topologie de la figure \ref{topo} avec l'outil cbgp et ensuite de configurer chaque routeur comme étant un routeur BGP et de créer des filtres pour chaque routeur.
 Pour chaque filtre, on réfléchit pour servir uniquement les intérêts de l'AS en question.
 \\
 
 Pour inclure tous les fichiers via l'invite de commande cbgp, il suffit d'inclure le fichier tinyWeb.cli.
 Ensuite, il faut taper \texttt{sim run} pour que les routes se transmettent.
+
+\begin{figure}
+ \fbox{
+ \begin{minipage}[c]{.25\linewidth}
+  \begin{center}
+   \textbf{Légende}
+  \end{center}
+  \begin{itemize}
+   \item {\color{red} Rouge}:\\Relation\\commerciale\\(profit).
+   \item {\color{green} Vert}:\\Relation\\gouvernementale\\(sans profit).
+  \end{itemize}
+ \end{minipage}
+ }
+ \begin{minipage}[c]{.75\linewidth}
+  \centering
+  \includegraphics[scale=0.65]{businesstiny.jpg}
+ \end{minipage}
+ \label{topo}
+ \caption{Topologie et relations business}
+\end{figure}
+
 \section{Filtres}
 Un client paie à son fournisseur la bande passante utilisée sur le(s) lien(s) qui les connecte(nt), peu importe le sens du trafic.
-De plus, certaines routes sont à préférer à d'autres pour des questions de latences (affiché en ms sur chaque lien dans la figure ?).
+De plus, certaines routes sont à préférer à d'autres pour des questions de latences (affiché en ms sur chaque lien dans la figure \ref{topo}).
 \subsection{Règles générales}
 Voici quelques raisonnements utilisés pour plusieurs AS:
 \begin{enumerate}

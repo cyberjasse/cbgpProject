@@ -16,7 +16,7 @@ bgp router 4.1.0.2
 		filter in
 			add-rule 
 				match any
-				action "community add 1:2"
+				action "community add 1:2, local-pref 10"
 				exit
 			exit
 		filter out
@@ -28,13 +28,17 @@ bgp router 4.1.0.2
 				match "community is 20965:3"
 				action deny
 				exit
+			add-rule
+				match any
+				action "as-path prepend 5"
+				exit
 			exit
 		exit
 	peer 4.0.0.4
 		filter in
 			add-rule 
 				match any
-				action "community add 20965:4"
+				action "community add 20965:4, local-pref 1000"
 				exit
 			exit
 		filter out
@@ -64,7 +68,7 @@ bgp router 4.1.0.1
 		filter in
 			add-rule 
 				match any
-				action "community add 20965:3"
+				action "community add 20965:3, local-pref 1000"
 				exit
 			exit
 		filter out

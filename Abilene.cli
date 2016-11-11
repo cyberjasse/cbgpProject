@@ -6,6 +6,15 @@ bgp router 3.0.0.1
 	add network 3.0.0.0/24
 	add peer 2 2.0.0.3
 	peer 2.0.0.3 next-hop-self
+	#Toutes routes venant de 2.0.0.3 et qui entre dans 3.0.0.1, je déclare comme étant de communauté 2:3
+	peer 2.0.0.3
+		filter in
+			add-rule
+				match any
+				action "community add 2:3"
+				exit
+			exit
+		exit
 	peer 2.0.0.3 up
 	add peer 20965 4.0.0.1
 	peer 4.0.0.1 next-hop-self
@@ -21,6 +30,15 @@ bgp router 3.0.0.2
 	add network 3.0.0.0/24
 	add peer 52 3.1.0.1
 	peer 3.1.0.1 next-hop-self
+	#Tout ce qui vient de R3 de Spring, ne pas annoncer à 3.1.0.1
+	peer 3.1.0.1
+		filter out
+			add-rule 
+				match "community is 2:3"
+				action deny
+				exit
+			exit
+		exit
 	peer 3.1.0.1 up
 	add peer 52 3.1.0.2
 	peer 3.1.0.2 next-hop-self
